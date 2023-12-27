@@ -1,4 +1,6 @@
 const SocketIO = require("socket.io");
+const { createAdapter } = require('@socket.io/redis-adapter');
+import { createClient } from 'redis';
 import { verify } from "../main/utile/auth";
 import server from "./http";
 
@@ -50,7 +52,21 @@ async function socketConnnectionHandle(client: any) {
   });
 }
 
-function createSocketServer() {
+async function createSocketServer() {
+  const client = await createClient()
+  .on('error', err => console.log('Redis Client Error', err))
+  
+  const subClient = client.duplicate();
+  Promise.all([client.connect(), subClient.connect()]);
+
+  client.on('ready', () => {
+    console.log('Redis connected successfully.');
+    // console.log('Redis.init ::: ', typeof Redis);
+  });
+
+  client.on('error', (error: any) => {
+    console.error('CATCH_ERROR : Redis Client error:', error);
+  });
   const socketConfig = {
     transports: ["websocket", "polling"],
     pingInterval: 1000,
@@ -60,6 +76,7 @@ function createSocketServer() {
 
   socketClient = SocketIO(server, socketConfig);
   // .of("/socketServer");
+  socketClient.adapter(createAdapter(client, subClient));
 
   socketClient.on("connection", socketConnnectionHandle);
 

@@ -1,4 +1,4 @@
 export const MONGO_DB = Object.freeze({
-  USERS: "users",
+  USERS: "chatUsers",
   CHAT: "chat",
 });
