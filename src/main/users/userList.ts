@@ -25,16 +25,12 @@ async function userList(eventData: any, socket: any) {
       sendData.data = data;
     }
 
-    const sendPayload = {
-      socket,
-      data: sendData,
-    };
     const responseData = {
       en: EVENTS.USER_LIST,
       data: sendData,
     };
     console.log("==> sendPayload <===", responseData);
-
+    socket.myid = myId;
     socketEvent.sendEventToClient(socket, responseData);
   } catch (error) {
     console.log("userList : error :: ", error);

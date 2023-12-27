@@ -64,7 +64,7 @@ class UserProfile extends BaseModel {
         isValidSchema.value,
         opts
       );
-      return { _id: inserteData.inserteId, ...inserteData.ops[0] };
+      return { _id: inserteData.insertedId };
     } catch (error) {
       console.error(error);
       throw error;

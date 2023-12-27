@@ -13,6 +13,16 @@ class SocketEvents {
       console.error("sendEventToClient :: error :: ", error);
     }
   }
+  async sendEventToGloble(client: any, data: any) {
+    try {
+      const socketClient: any = socketOps();
+  
+      console.log("SEND EVENT TO globle: ", data);
+       socketClient.emit("res", { data });
+    } catch (error) {
+      console.error("sendEventToGloble :: error :: ", error);
+    }
+  }
   
   async sendEventToRoom(roomId: any, data: any) {
     const socketClient: any = socketOps();
@@ -28,6 +38,7 @@ class SocketEvents {
     const socketClient: any = socketOps();
     return socketClient.sockets.sockets.get(socketId);
   }
+  
 }
 
 

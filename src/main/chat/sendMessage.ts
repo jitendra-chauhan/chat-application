@@ -11,13 +11,14 @@ async function sendMessage(eventData: any, socket: any) {
     console.log("====> sendMessage <====", eventData);
     const roomId = await createRoomId(eventData.from, eventData.to);
     const data = await DB.UserChat.sendMessage(eventData);
-
+    
     console.log("====> USER_CHAT <====", data);
-
+    const getChat = await DB.UserChat.getMessage({_id : data._id});
+    console.log("====> USER_CHAT <==== getChat : ", getChat);
     let sendData = {
       flag: true,
       status: "sussces",
-      data: data,
+      data: getChat,
     };
   
     const responseData = {

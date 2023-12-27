@@ -35,6 +35,9 @@ async function requestHandler(socket: any, body: any) {
       case EVENTS.GET_CHAT:
         await Helper.getMsgHelper(body, socket);
         break;
+      case "disconnect":
+        await Helper.disconnectHelper(body, socket);
+        break;
       default:
         break;
     }

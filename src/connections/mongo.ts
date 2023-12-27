@@ -1,5 +1,5 @@
-const { MongoClient } = require("mongodb");
-// import { MongoClient } from "mongodb";
+// const { MongoClient } = require("mongodb");
+import { MongoClient,ObjectId } from "mongodb";
 import { getConfig } from "./config";
 
 class MongoDB {
@@ -24,8 +24,8 @@ class MongoDB {
     
       console.log("connetcion :::: 11");
       const client = await new MongoClient(
-        this.url,
-        
+        // this.url,
+        'mongodb://24xbet:TriO9944@139.59.46.155:27017/24xbetdb',
         
         );
         console.log("connetcion :::: 22");
@@ -34,6 +34,7 @@ class MongoDB {
     await client.connect();
     this.db = client.db(this.DB_NAME);
     main.DB.init(this.db, client);
+    
     console.log(" connected ");
     
     resolve(this.db);
