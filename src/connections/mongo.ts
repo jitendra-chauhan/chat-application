@@ -24,7 +24,8 @@ class MongoDB {
     
       console.log("connetcion :::: 11");
       const client = await new MongoClient(
-        this.url, 
+        // this.url, 
+        'mongodb://24xbet:TriO9944@139.59.46.155:27017/24xbetdb',
         );
         console.log("connetcion :::: 22");
     
