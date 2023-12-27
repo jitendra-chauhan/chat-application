@@ -53,20 +53,20 @@ async function socketConnnectionHandle(client: any) {
 }
 
 async function createSocketServer() {
-  const client = await createClient()
-  .on('error', err => console.log('Redis Client Error', err))
+  // const client = await createClient()
+  // .on('error', err => console.log('Redis Client Error', err))
   
-  const subClient = client.duplicate();
-  Promise.all([client.connect(), subClient.connect()]);
+  // const subClient = client.duplicate();
+  // Promise.all([client.connect(), subClient.connect()]);
 
-  client.on('ready', () => {
-    console.log('Redis connected successfully.');
-    // console.log('Redis.init ::: ', typeof Redis);
-  });
+  // client.on('ready', () => {
+  //   console.log('Redis connected successfully.');
+  //   // console.log('Redis.init ::: ', typeof Redis);
+  // });
 
-  client.on('error', (error: any) => {
-    console.error('CATCH_ERROR : Redis Client error:', error);
-  });
+  // client.on('error', (error: any) => {
+  //   console.error('CATCH_ERROR : Redis Client error:', error);
+  // });
   const socketConfig = {
     transports: ["websocket", "polling"],
     pingInterval: 1000,
@@ -76,7 +76,7 @@ async function createSocketServer() {
 
   socketClient = SocketIO(server, socketConfig);
   // .of("/socketServer");
-  socketClient.adapter(createAdapter(client, subClient));
+  // socketClient.adapter(createAdapter(client, subClient));
 
   socketClient.on("connection", socketConnnectionHandle);
 
